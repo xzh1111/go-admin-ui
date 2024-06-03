@@ -2,7 +2,7 @@
   <div class="dashboard-editor-container">
     <el-row :gutter="12">
       <el-col :sm="24" :xs="24" :md="6" :xl="6" :lg="6" :style="{ marginBottom: '12px' }">
-        <chart-card title="总销售额" total="￥126,560">
+        <chart-card title="总销售额" total="***">
           <el-tooltip slot="action" class="item" effect="dark" content="指标说明" placement="top-start">
             <i class="el-icon-warning-outline" />
           </el-tooltip>
@@ -18,7 +18,7 @@
         </chart-card>
       </el-col>
       <el-col :sm="24" :xs="24" :md="6" :xl="6" :lg="6" :style="{ marginBottom: '12px' }">
-        <chart-card title="访问量" :total="8846">
+        <chart-card title="访问量" :total="88">
           <el-tooltip slot="action" class="item" effect="dark" content="指标说明" placement="top-start">
             <i class="el-icon-warning-outline" />
           </el-tooltip>
@@ -29,7 +29,7 @@
         </chart-card>
       </el-col>
       <el-col :sm="24" :xs="24" :md="6" :xl="6" :lg="6" :style="{ marginBottom: '12px' }">
-        <chart-card title="支付笔数" :total="6560">
+        <chart-card title="支付笔数" :total="0">
           <el-tooltip slot="action" class="item" effect="dark" content="指标说明" placement="top-start">
             <i class="el-icon-warning-outline" />
           </el-tooltip>
@@ -40,7 +40,7 @@
         </chart-card>
       </el-col>
       <el-col :sm="24" :xs="24" :md="6" :xl="6" :lg="6" :style="{ marginBottom: '12px' }">
-        <chart-card title="运营活动效果" total="78%">
+        <chart-card title="运营活动效果" total="100%">
           <el-tooltip slot="action" class="item" effect="dark" content="指标说明" placement="top-start">
             <i class="el-icon-warning-outline" />
           </el-tooltip>
@@ -112,12 +112,12 @@ for (let i = 0; i < 12; i += 1) {
 }
 
 const rankList = []
-for (let i = 0; i < 7; i++) {
-  rankList.push({
-    name: '白鹭岛 ' + (i + 1) + ' 号店',
-    total: 1234.56 - i * 100
-  })
-}
+// for (let i = 0; i < 7; i++) {
+//   rankList.push({
+//     name: '白鹭岛 ' + (i + 1) + ' 号店',
+//     total: 1234.56 - i * 100
+//   })
+// }
 
 export default {
   name: 'DashboardAdmin',
