@@ -81,7 +81,7 @@ export default {
       rules: {
         tableName: [
           { required: true, message: '请输入表名称', trigger: 'blur' },
-          { pattern: /^[a-z\._]*$/g, trigger: 'blur', message: '只允许小写字母,例如 sys_demo 格式' }
+          { pattern: /^[a-z\._0-9]*$/g, trigger: 'blur', message: '只允许小写字母,例如 sys_demo 格式' }
         ],
         tableComment: [
           { required: true, message: '请输入菜单名称', trigger: 'blur' }

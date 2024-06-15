@@ -145,7 +145,7 @@
               <el-input
                 v-model="form.price"
                 placeholder="价格"
-              />
+                @input="handlePriceInput" />
             </el-form-item>
             <el-form-item label="图片" prop="image">
               <el-input
@@ -205,6 +205,7 @@ export default {
       },
       // 表单参数
       form: {
+        price: 0
       },
       // 表单校验
       rules: { name: [{ required: true, message: '款式不能为空', trigger: 'blur' }],
@@ -217,6 +218,12 @@ export default {
     this.getList()
   },
   methods: {
+    handlePriceInput(value) {
+      // 将输入的字符串值转换为float64
+      const floatValue = parseFloat(value)
+      this.form.price = floatValue
+      // this.form.price = parseInt(value, 10)
+    },
     /** 查询参数列表 */
     getList() {
       this.loading = true
@@ -238,7 +245,7 @@ export default {
 
         id: undefined,
         name: undefined,
-        price: undefined,
+        price: 0,
         image: undefined
       }
       this.resetForm('form')

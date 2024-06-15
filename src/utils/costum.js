@@ -80,6 +80,7 @@ export function selectItemsLabel(datas, value) {
       return false
     }
   })
+  //console.log("actions = ",actions)
   return actions.join('')
 }
 
