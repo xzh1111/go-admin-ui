@@ -12,22 +12,6 @@
             @keyup.enter.native="handleQuery"
           />
           </el-form-item>
-          <el-form-item label="价格" prop="price"><el-input
-            v-model="queryParams.price"
-            placeholder="请输入价格"
-            clearable
-            size="small"
-            @keyup.enter.native="handleQuery"
-          />
-          </el-form-item>
-          <el-form-item label="图片" prop="image"><el-input
-            v-model="queryParams.image"
-            placeholder="请输入图片"
-            clearable
-            size="small"
-            @keyup.enter.native="handleQuery"
-          />
-          </el-form-item>
 
           <el-form-item>
             <el-button type="primary" icon="el-icon-search" size="mini" @click="handleQuery">搜索</el-button>
@@ -77,14 +61,14 @@
             prop="name"
             :show-overflow-tooltip="true"
           /><el-table-column
-            label="价格"
+            label="款式单价"
             align="center"
             prop="price"
             :show-overflow-tooltip="true"
           /><el-table-column
-            label="图片"
+            label="款式重量公式"
             align="center"
-            prop="image"
+            prop="weightFormula"
             :show-overflow-tooltip="true"
           />
           <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
@@ -141,16 +125,18 @@
                 placeholder="款式"
               />
             </el-form-item>
-            <el-form-item label="价格" prop="price">
+            <el-form-item label="款式单价" prop="price">
               <el-input
                 v-model="form.price"
-                placeholder="价格"
-                @input="handlePriceInput" />
+                placeholder="款式单价"
+              />
             </el-form-item>
-            <el-form-item label="图片" prop="image">
+            <el-form-item label="款式重量公式" prop="weightFormula">
               <el-input
-                v-model="form.image"
-                placeholder="图片"
+                v-model="form.weightFormula"
+                type="textarea"
+                :rows="2"
+                placeholder="请输入内容"
               />
             </el-form-item>
           </el-form>
@@ -198,19 +184,14 @@ export default {
       queryParams: {
         pageIndex: 1,
         pageSize: 10,
-        name: undefined,
-        price: undefined,
-        image: undefined
+        name: undefined
 
       },
       // 表单参数
       form: {
-        price: 0
       },
       // 表单校验
-      rules: { name: [{ required: true, message: '款式不能为空', trigger: 'blur' }],
-        price: [{ required: true, message: '价格不能为空', trigger: 'blur' }],
-        image: [{ required: true, message: '图片不能为空', trigger: 'blur' }]
+      rules: { name: [{ required: true, message: '款式不能为空', trigger: 'blur' }]
       }
     }
   },
@@ -218,12 +199,6 @@ export default {
     this.getList()
   },
   methods: {
-    handlePriceInput(value) {
-      // 将输入的字符串值转换为float64
-      const floatValue = parseFloat(value)
-      this.form.price = floatValue
-      // this.form.price = parseInt(value, 10)
-    },
     /** 查询参数列表 */
     getList() {
       this.loading = true
@@ -245,8 +220,8 @@ export default {
 
         id: undefined,
         name: undefined,
-        price: 0,
-        image: undefined
+        price: undefined,
+        weightFormula: undefined
       }
       this.resetForm('form')
     },
@@ -273,7 +248,7 @@ export default {
     handleAdd() {
       this.reset()
       this.open = true
-      this.title = '添加款式'
+      this.title = '添加Styles'
       this.isEdit = false
     },
     // 多选框选中数据
@@ -290,13 +265,14 @@ export default {
       getStyles(id).then(response => {
         this.form = response.data
         this.open = true
-        this.title = '修改款式'
+        this.title = '修改Styles'
         this.isEdit = true
       })
     },
     /** 提交按钮 */
     submitForm: function() {
       this.$refs['form'].validate(valid => {
+        this.form.price = Number(this.form.price)
         if (valid) {
           if (this.form.id !== undefined) {
             updateStyles(this.form).then(response => {

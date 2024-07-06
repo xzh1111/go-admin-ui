@@ -9,7 +9,7 @@ export function setItems(response, k, v) {
   k = k || 'id'
   v = v || 'name'
   if (response.data && response.data.list && response.data.list.length > 0) {
-    //console.log('response.data.list 1:', response.data.list)
+    // console.log('response.data.list 1:', response.data.list)
     response.data.list.forEach(e => {
       data.push({
         key: e[k].toString(),
@@ -20,31 +20,29 @@ export function setItems(response, k, v) {
   }
 }
 
-export function setItemsNew(response, fields = [], newFields =[]) {
+export function setItemsNew(response, fields = [], newFields = []) {
   const data = []
- 
+
   if (response.data && response.data.list && response.data.list.length > 0) {
-    //console.log('response.data.list 2:', response.data.list)
-    
+    // console.log('response.data.list 2:', response.data.list)
+
     response.data.list.forEach(e => {
-      data.push({
-        key: e["name"],
-        value: e["name"]
-      })
-      const item = {}
+      const item = {
+        key: e['name'],
+        value: e['name']
+      }
       // 遍历额外的字段
       fields.forEach((field, idx) => {
         let keyName = field
         if (newFields.length > idx) {
           keyName = newFields[idx]
-          //console.log('response keyName:', keyName)
+          // console.log('response keyName:', keyName)
         }
         item[keyName] = e[field]
-
       })
       data.push(item)
     })
-    //console.log('response data 2:', data)
+    // console.log('response data 2:', data)
 
     return data
   }
