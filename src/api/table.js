@@ -39,6 +39,7 @@ export function setItemsNew(response, fields = [], newFields = []) {
           // console.log('response keyName:', keyName)
         }
         item[keyName] = e[field]
+        // console.log('response keyName:', keyName, 'value:', e[field], 'field:', field)
       })
       data.push(item)
     })

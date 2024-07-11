@@ -66,9 +66,14 @@
             prop="formula"
             :show-overflow-tooltip="true"
           /><el-table-column
-            label="公式标识"
+            label="公式标识(关联计算)"
             align="center"
             prop="formulaKey"
+            :show-overflow-tooltip="true"
+          /><el-table-column
+            label="公式计算优先级"
+            align="center"
+            prop="priority"
             :show-overflow-tooltip="true"
           />
           <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
@@ -133,10 +138,16 @@
                 placeholder="请输入内容"
               />
             </el-form-item>
-            <el-form-item label="公式标识" prop="formulaKey">
+            <el-form-item label="公式标识(关联计算)" prop="formulaKey">
               <el-input
                 v-model="form.formulaKey"
-                placeholder="公式标识"
+                placeholder="公式标识(关联计算)"
+              />
+            </el-form-item>
+            <el-form-item label="公式计算优先级" prop="priority">
+              <el-input
+                v-model="form.priority"
+                placeholder="公式计算优先级"
               />
             </el-form-item>
           </el-form>
@@ -221,7 +232,8 @@ export default {
         id: undefined,
         name: undefined,
         formula: undefined,
-        formulaKey: undefined
+        formulaKey: undefined,
+        priority: undefined
       }
       this.resetForm('form')
     },
@@ -272,6 +284,8 @@ export default {
     /** 提交按钮 */
     submitForm: function() {
       this.$refs['form'].validate(valid => {
+        this.form.priority = Number(this.form.priority)
+
         if (valid) {
           if (this.form.id !== undefined) {
             updateBjFormula(this.form).then(response => {

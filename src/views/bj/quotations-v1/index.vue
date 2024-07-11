@@ -64,7 +64,6 @@
           <el-table-column label="印几个颜色" align="center" prop="numberOfColors" :show-overflow-tooltip="true" />
           <el-table-column label="印的价格" align="center" prop="printPrice" :show-overflow-tooltip="true" />
 
-          <el-table-column label="最终报价" align="center" prop="finalQuotation" :show-overflow-tooltip="true" />
           <el-table-column label="供电类型" align="center" prop="powerSource" :show-overflow-tooltip="true" />
           <el-table-column label="灯带费用" align="center" prop="lightStripCost" :show-overflow-tooltip="true" />
           <el-table-column label="发光面数" align="center" prop="numberOfIlluminatedFaces" :formatter="formatNumberOfIlluminatedFaces" width="100" />
@@ -75,6 +74,8 @@
           <el-table-column label="包装费" align="center" prop="packagingFee" :show-overflow-tooltip="true" />
           <el-table-column label="成本" align="center" prop="cost" :show-overflow-tooltip="true" />
           <el-table-column label="利润" align="center" prop="profit" :show-overflow-tooltip="true" />
+          <el-table-column label="最终报价" align="center" prop="finalQuotation" :show-overflow-tooltip="true" />
+
           <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
             <template slot-scope="scope">
               <el-popconfirm class="delete-popconfirm" title="确认要修改吗?" confirm-button-text="修改" @confirm="handleUpdate(scope.row)">
@@ -307,6 +308,7 @@ export default {
     exportToExcel() {
       const data = this.quotationsList.map(row => ({
         单号: row.orderNumber,
+        地区: this.regionFormat(row),
         款式: this.styleFormat(row),
         颜色: this.colorFormat(row),
         长: row.length,
@@ -328,13 +330,12 @@ export default {
         包装费: row.packagingFee,
         成本: row.cost,
         利润: row.profit,
-        最终报价: row.finalQuotation,
         供电类型: row.powerSource,
         灯带费用: row.lightStripCost,
         发光面数: row.numberOfIlluminatedFaces,
         白板价格: row.whiteBoardPrice,
-        地区: this.regionFormat(row),
-        额外属性: row.extraAttributes
+        额外属性: row.extraAttributes,
+        最终报价: row.finalQuotation
       }))
 
       const ws = XLSX.utils.json_to_sheet(data)
@@ -344,17 +345,18 @@ export default {
       XLSX.writeFile(wb, '报价单.xlsx')
     },
     addExtFields() {
-      const sources = [this.styleOptions, this.colorOptions, this.regionOptions]
-      const sourceFields = [this.form.style, this.form.color, this.form.region] // 和sources一一对应
+      const sources = [this.styleOptions, this.colorOptions, this.regionOptions, this.thicknessOptions]
+      const sourceFields = [this.form.style, this.form.color, this.form.region, String(this.form.thickness)] // 和sources一一对应
       let selectedOptions = []
       // console.log("addExtFields - sources:", sources)
       // console.log("addExtFields - sourceFields:", sourceFields)
 
-      // console.log("addExtFields")
+      // console.log("sourceFields:", sourceFields)
+      // console.log("sources:",sources)
       for (let i = 0; i < sources.length; i++) {
         const options = sources[i].find(option => option.name === sourceFields[i])
         if (options) {
-          // console.log("addExtFields find ", sourceFields[i])
+          console.log('addExtFields find ', sourceFields[i])
           selectedOptions = selectedOptions.concat(options)
         }
       }
@@ -495,7 +497,7 @@ export default {
     },
     getThicknessItems() {
       this.getItems(listThickness, undefined).then(res => {
-        this.thicknessOptions = this.setItemsNew(res, ['thickness', 'tk_kg'], ['name', 'thickness_weight'])
+        this.thicknessOptions = this.setItemsNew(res, ['thickness', 'tkKg'], ['name', 'thickness_weight'])
       })
     },
     getRegionsItems() {
@@ -520,7 +522,7 @@ export default {
     handleAdd() {
       this.reset()
       this.open = true
-      this.title = '添加QuotationsV1'
+      this.title = '添加报价单'
       this.isEdit = false
     },
     // 多选框选中数据
