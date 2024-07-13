@@ -145,9 +145,9 @@
             <el-form-item label="印几个颜色" prop="numberOfColors">
               <el-input v-model="form.numberOfColors" placeholder="印几个颜色" />
             </el-form-item>
-            <el-form-item label="包装费" prop="packagingFee">
+            <!-- <el-form-item label="包装费" prop="packagingFee">
               <el-input v-model="form.packagingFee" placeholder="包装费" />
-            </el-form-item>
+            </el-form-item> -->
             <el-form-item label="利润" prop="profit">
               <el-input v-model="form.profit" placeholder="利润" />
             </el-form-item>
@@ -158,9 +158,9 @@
                 <el-option label="太阳能" value="太阳能" />
               </el-select>
             </el-form-item>
-            <el-form-item label="灯带费用" prop="lightStripCost">
+            <!-- <el-form-item label="灯带费用" prop="lightStripCost">
               <el-input v-model="form.lightStripCost" placeholder="灯带费用" readonly />
-            </el-form-item>
+            </el-form-item> -->
             <el-form-item label="发光面" prop="numberOfIlluminatedFaces">
               <el-select v-model="form.numberOfIlluminatedFaces" placeholder="请选择发光面">
                 <el-option label="不发光" :value="0" />
@@ -287,14 +287,14 @@ export default {
       }
     }
   },
-  watch: {
-    'form.powerSource': function(newValue) {
-      this.calculateLightStripCost()
-    },
-    'form.length': function(newValue) {
-      this.calculateLightStripCost()
-    }
-  },
+  // watch: {
+  //   'form.powerSource': function(newValue) {
+  //     this.calculateLightStripCost()
+  //   },
+  //   'form.length': function(newValue) {
+  //     this.calculateLightStripCost()
+  //   }
+  // },
   created() {
     this.getList()
     this.getStylesItems()
