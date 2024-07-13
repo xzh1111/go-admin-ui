@@ -2,9 +2,9 @@
 
 # 设置变量
 IMAGE_NAME="aidenxiezh/quotation-ui"
-SERVER_IP="$1"
-SERVER_PASSWORD="$2"
-VERSION="$3"
+# SERVER_IP="$1"
+# SERVER_PASSWORD="$2"
+VERSION="$1"
 
 # 如果没有指定版本，则使用git最新commit id值的前6位
 if [ -z "$VERSION" ]; then

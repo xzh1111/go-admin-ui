@@ -55,6 +55,7 @@
           <el-table-column label="管重及额外重量" align="center" prop="pipeWeightAndExtraWeight" :show-overflow-tooltip="true" />
           <el-table-column label="数量" align="center" prop="quantity" :show-overflow-tooltip="true" />
           <el-table-column label="单个白铁重量" align="center" prop="singleIronWeight" :show-overflow-tooltip="true" />
+          <el-table-column label="最终物流重量" align="center" prop="finalLogisticsWeight" :show-overflow-tooltip="true" />
           <el-table-column label="白铁价格" align="center" prop="ironPrice" :show-overflow-tooltip="true" />
           <el-table-column label="烤漆价格" align="center" prop="bakingPaintPrice" :show-overflow-tooltip="true" />
           <el-table-column label="是否需要丝印" align="center" prop="needSilkScreen" :formatter="needSilkScreenFormat" width="100" />
@@ -318,6 +319,7 @@ export default {
         管重及额外重量: row.pipeWeightAndExtraWeight,
         数量: row.quantity,
         单个白铁重量: row.singleIronWeight,
+        最终物流重量: row.finalLogisticsWeight,
         白铁价格: row.ironPrice,
         烤漆价格: row.bakingPaintPrice,
         是否需要丝印: this.needSilkScreenFormat(row),
